@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+class BankAccount {
+    String name;
+    String accountNumber;
+    double balance;
+
+    // Constructor
+    BankAccount(String name, String accountNumber) {
+        this.name = name;
+        this.accountNumber = accountNumber;
+        this.balance = 0.0;
+    }
+
+    // Deposit
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("₹" + amount + " deposited successfully.");
+        } else {
+            System.out.println("Invalid amount.");
+        }
+    }
+
+    // Withdraw
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("₹" + amount + " withdrawn successfully.");
+        } else {
+            System.out.println("Insufficient balance or invalid amount.");
+        }
+    }
+
+    // Check Balance
+    void checkBalance() {
+        System.out.println("Current Balance: ₹" + balance);
+    }
+}
+
+public class BankSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Create account
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter account number: ");
+        String accNumber = sc.nextLine();
+
+        BankAccount account = new BankAccount(name, accNumber);
+        int choice;
+
+        // Menu
+        do {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = sc.nextDouble();
+                    account.deposit(depositAmount);
+                    break;
+                case 2:
+                    System.out.print("Enter withdrawal amount: ");
+                    double withdrawAmount = sc.nextDouble();
+                    account.withdraw(withdrawAmount);
+                    break;
+                case 3:
+                    account.checkBalance();
+                    break;
+                case 4:
+                    System.out.println("Thank you for banking with us, " + account.name + "!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while (choice != 4);
+
+        sc.close();
+    }
+}
